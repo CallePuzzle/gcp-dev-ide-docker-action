@@ -1,1 +1,1 @@
-FROM jilgue/gcp-dev-ide-docker-action:develop
+FROM jilgue/gcp-dev-ide-docker-action-image:develop
