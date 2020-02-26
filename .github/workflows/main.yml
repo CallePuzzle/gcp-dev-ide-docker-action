@@ -6,8 +6,13 @@ jobs:
     name: Test gcp dev ide
     steps:
       - name: Get email
+        id: email
         run: |
-          curl --request GET \
+          email=$(curl --request GET \
           --url https://api.github.com/users/$GITHUB_ACTOR \
           --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' \
+          --header 'content-type: application/json') \
+          && echo ::set-output name=time::$email
+
+    - name: Get the output time
+      run: echo "The time was ${{ steps.email.outputs.email }}"
