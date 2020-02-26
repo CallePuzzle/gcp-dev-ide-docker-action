@@ -5,14 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Test gcp dev ide
     steps:
-      - name: Get email
-        id: email
-        run: |
-          email=$(curl --request GET \
-          --url https://api.github.com/users/$GITHUB_ACTOR \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' | jq .email ) \
-          && echo ::set-output name=email::$email
 
       - name: Get the output
-        run: echo "The email was ${{ steps.email.outputs.email }}"
+        run: echo "${{ github }}"
