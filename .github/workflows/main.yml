@@ -8,6 +8,6 @@ jobs:
       - name: Get email
         run: |
           curl --request GET \
-          --url https://api.github.com/user/emails \
+          --url https://api.github.com/users/$GITHUB_ACTOR \
           --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
           --header 'content-type: application/json' \
