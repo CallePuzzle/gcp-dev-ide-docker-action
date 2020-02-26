@@ -7,4 +7,4 @@ jobs:
     steps:
 
       - name: Get the output
-        run: echo "${{ github.event.assignee.email }}"
+        run: echo "${{ github.event.assignee }}"
