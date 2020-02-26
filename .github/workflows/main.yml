@@ -5,3 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     name: Test gcp dev ide
     steps:
+      - name: Get the output
+        run: echo "${{ github.event }}"
