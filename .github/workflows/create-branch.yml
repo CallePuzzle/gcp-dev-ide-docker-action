@@ -9,10 +9,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - name: Create Issue Branch
-          uses: robvanderleek/create-issue-branch@master
+          uses: jilgue/create-issue-branch@develop
           id: create_branch
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         - name: Get the output time
-          run: echo "The time was ${{ steps.create_branch }}"
+          run: echo "The time was ${{ steps.create_branch.outputs.branch-name }}"
