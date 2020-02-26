@@ -11,7 +11,7 @@ jobs:
           email=$(curl --request GET \
           --url https://api.github.com/users/$GITHUB_ACTOR \
           --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json') | jq .email \
+          --header 'content-type: application/json' | jq .email ) \
           && echo ::set-output name=email::$email
 
       - name: Get the output
