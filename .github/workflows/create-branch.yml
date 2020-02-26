@@ -12,14 +12,14 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get email
-        id: email
-        run: |
-          email=$(curl --request GET \
-          --url https://api.github.com/users/$GITHUB_ACTOR \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' | jq .email ) \
-          && echo ::set-output name=email::$email
+        - name: Get email
+          id: email
+          run: |
+            email=$(curl --request GET \
+            --url https://api.github.com/users/$GITHUB_ACTOR \
+            --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            --header 'content-type: application/json' | jq .email ) \
+            && echo ::set-output name=email::$email
 
         - name: Checkout
           uses: actions/checkout@v2
