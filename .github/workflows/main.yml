@@ -1,0 +1,7 @@
+on: [push]
+
+jobs:
+  gcp_ide_job:
+    runs-on: ubuntu-latest
+    name: Test gcp dev ide
+    steps:

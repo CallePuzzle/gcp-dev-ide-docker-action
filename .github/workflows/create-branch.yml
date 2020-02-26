@@ -1,18 +1,45 @@
 on:
-    issues:
-        types: [assigned]
-    issue_comment:
-        types: [created]
+  issues:
+    types: [assigned]
 
 jobs:
-    create_issue_branch_job:
-        runs-on: ubuntu-latest
-        steps:
-        - name: Create Issue Branch
-          uses: jilgue/create-issue-branch@develop
-          id: create_branch
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  create_issue_branch_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the output
+        run: echo "${{ github.event.assignee.email }}"
 
-        - name: Get the output time
-          run: echo "The time was ${{ steps.create_branch.outputs.branch-name }}"
+      - name: hola
+        run: añksdjfadj
+
+      - name: Create Issue Branch
+        uses: jilgue/create-issue-branch@develop
+        id: create_branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get email
+        id: email
+        run: |
+          email=$(curl --request GET \
+          --url https://api.github.com/users/$GITHUB_ACTOR \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' | jq .email ) \
+          && echo ::set-output name=email::$email
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create dev ide in GCP
+        uses: ./ # Uses an action in the root directory
+        id: dev-ide
+        with:
+          SA_KEY: ${{ secrets.SA_KEY }}
+          PROJECT: ${{ secrets.PROJECT }}
+          REGION: ${{ secrets.REGION }}
+          BUCKET: ${{ secrets.BUCKET }}
+          BRANCH_NAME: ${{ steps.create_branch.outputs.branch-name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR_EMAIL: ${{ steps.email.outputs.email }}
+          # GITHUB_ACTOR set as environment variable
+          # GITHUB_REPOSITORY set as environment variable
