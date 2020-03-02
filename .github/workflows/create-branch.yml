@@ -21,6 +21,9 @@ jobs:
           --header 'content-type: application/json' | jq .email ) \
           && echo ::set-output name=email::$email
 
+      - name: Get the output
+        run: echo "${{ steps.email.outputs.email }}"
+
       - name: Checkout
         uses: actions/checkout@v2
 
